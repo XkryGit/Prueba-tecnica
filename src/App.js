@@ -18,7 +18,7 @@ function App() {
       .then((json) => handleProductInitial(json))
       .then(() => setProductsFilter(productsInitial))
       .then(() => setProducts(productsInitial))
-      .catch((error) => alert("Ha ocurrido un error, intentelo más tarde."));
+      .catch((error) => alert("Ha ocurrido un error, inténtelo más tarde."));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -26,7 +26,7 @@ function App() {
     fetch(`https://fakestoreapi.com/products/categories`)
       .then((response) => response.json())
       .then((json) => setCategories(json))
-      .catch((error) => alert("Ha ocurrido un error, intentelo más tarde."));
+      .catch((error) => alert("Ha ocurrido un error, inténtelo más tarde."));
   }, []);
 
   return (
