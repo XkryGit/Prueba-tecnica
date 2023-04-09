@@ -3,8 +3,8 @@ import "./App.scss";
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [productsFilter, setProductsFilter] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [productsCopy, setProductsCopy] = useState([]);
 
   let productsInitial = [];
 
@@ -16,8 +16,8 @@ function App() {
     fetch(`https://fakestoreapi.com/products`)
       .then((response) => response.json())
       .then((json) => handleProductInitial(json))
+      .then(() => setProductsFilter(productsInitial))
       .then(() => setProducts(productsInitial))
-      .then(() => setProductsCopy(productsInitial))
       .catch((error) => alert("Ha ocurrido un error, intentelo más tarde."));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -35,7 +35,7 @@ function App() {
       <div className="filter-button-container">
         <button
           className="filter-button"
-          onClick={() => setProducts(productsCopy)}
+          onClick={() => setProductsFilter(products)}
         >
           ALL CATEGORIES
         </button>
@@ -44,10 +44,8 @@ function App() {
             <button
               className="filter-button"
               onClick={() =>
-                setProducts(
-                  productsCopy.filter(
-                    (product) => product.category === categorie
-                  )
+                setProductsFilter(
+                  products.filter((product) => product.category === categorie)
                 )
               }
             >
@@ -56,7 +54,6 @@ function App() {
           </>
         ))}
       </div>
-
       <ul className="product-list-container">
         <li className="product-list-headers">
           <span className="list-header">Image</span>
@@ -64,7 +61,7 @@ function App() {
           <span className="list-header">Price</span>
         </li>
 
-        {products.map((product) => (
+        {productsFilter.map((product) => (
           <>
             <li className="product-list-product">
               <img
