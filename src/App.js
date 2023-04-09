@@ -8,14 +8,14 @@ function App() {
 
   let productsInitial = [];
 
-  function handelProductInitial(x) {
+  function handleProductInitial(x) {
     productsInitial = [...x];
   }
 
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products`)
       .then((response) => response.json())
-      .then((json) => handelProductInitial(json))
+      .then((json) => handleProductInitial(json))
       .then(() => setProducts(productsInitial))
       .then(() => setProductsCopy(productsInitial))
       .catch((error) => alert("Ha ocurrido un error, intentelo más tarde."));
@@ -57,22 +57,27 @@ function App() {
         ))}
       </div>
 
-      <div className="product-list-container">
-        <span className="list-header">Image</span>
-        <span className="list-header">Name</span>
-        <span className="list-header">Price</span>
+      <ul className="product-list-container">
+        <li className="product-list-headers">
+          <span className="list-header">Image</span>
+          <span className="list-header">Name</span>
+          <span className="list-header">Price</span>
+        </li>
+
         {products.map((product) => (
           <>
-            <img
-              className="list"
-              src={product.image}
-              alt="../public/imgAlt.png"
-            />
-            <h4 className="list">{product.title}</h4>
-            <span className="list">{product.price}€</span>
+            <li className="product-list-product">
+              <img
+                className="list"
+                src={product.image}
+                alt="../public/imgAlt.png"
+              />
+              <h3 className="list">{product.title}</h3>
+              <span className="list">{product.price}€</span>
+            </li>
           </>
         ))}
-      </div>
+      </ul>
     </>
   );
 }
